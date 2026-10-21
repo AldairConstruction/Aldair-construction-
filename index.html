@@ -129,6 +129,24 @@ footer {
     <img src="IMG_1093.jpeg" style="width:100%; border-radius:12px;" alt="Trabajo de construcción">
     <img src="IMG_1193.jpeg" style="width:100%; border-radius:12px;" alt="Trabajo de construcción">
     <img src="IMG_1280.jpeg" style="width:100%; border-radius:12px;" alt="Trabajo de construcción">
+    <script>
+fetch("https://api.github.com/repos/USUARIO/REPOSITORIO/contents/")
+.then(r => r.json())
+.then(archivos => {
+  const galeria = document.getElementById("fotos-nuevas");
+  archivos.forEach(foto => {
+    if (/\.(jpg|jpeg|png|webp)$/i.test(foto.name)
+        && !foto.name.startsWith("IMG_")) {
+      const img = document.createElement("img");
+      img.src = foto.download_url;
+      img.style = "width:100%;border-radius:12px";
+      img.alt = "Trabajo de construcción";
+      galeria.appendChild(img);
+    }
+  });
+});
+</script>
+<div id="fotos-nuevas" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:15px"></div>
   </div>
 </section>
 
